@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>CheerUp - Your Interactive Hospital Companion</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+      :root {
+        --color-bg: #ffffff;
+        --color-primary: #000000;
+        --color-muted: #6b7280;
+        --color-accent: #2563eb;
+        --color-accent-light: #3b82f6;
+        --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 0.75rem;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --font-family: "Poppins", sans-serif;
+      }
+
+      /* Reset and base */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-family);
+        background-image: radial-gradient(
+            circle at 20% 30%,
+            #cce4f7,
+            transparent 50%
+          ),
+          radial-gradient(circle at 70% 70%, #fceabb, transparent 40%),
+          radial-gradient(circle at 80% 10%, #b9fbc0, transparent 60%);
+        background-color: var(--color-bg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: auto;
+        color: var(--color-primary);
+        line-height: 1.5;
+        font-size: 18px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        color: var(--color-muted);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color var(--transition);
+      }
+      a:hover,
+      a:focus {
+        color: var(--color-accent);
+        outline: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        background: var(--color-bg);
+        box-shadow: var(--shadow-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        z-index: 10;
+        user-select: none;
+      }
+      header .logo {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      nav {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1rem;
+      }
+
+      main {
+        max-width: 1200px;
+        width: 95vw;
+        margin: 3rem auto 4rem;
+        display: grid;
+        grid-gap: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+
+      /* Hero Section spanning full width */
+      .hero {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding-bottom: 1rem;
+        user-select: none;
+      }
+      .hero h1 {
+        font-weight: 800;
+        font-size: 3.75rem;
+        margin-bottom: 0.25rem;
+        line-height: 1.1;
+      }
+      .hero p {
+        color: var(--color-muted);
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+      }
+      .hero button.cta {
+        background-color: var(--color-accent);
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 1rem 3rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 8px 15px rgba(37, 99, 235, 0.5);
+        transition: background-color var(--transition), transform 0.15s ease;
+        user-select: none;
+      }
+      .hero button.cta:hover,
+      .hero button.cta:focus {
+        background-color: var(--color-accent-light);
+        outline: none;
+        transform: scale(1.05);
+      }
+      .hero button.cta:active {
+        transform: scale(0.98);
+      }
+
+      /* Card style */
+      .card {
+        background: var(--color-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-light);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        user-select: none;
+        transition: box-shadow var(--transition);
+        min-height: 360px;
+      }
+      .card:hover,
+      .card:focus-within {
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        outline: none;
+      }
+
+      .card h2 {
+        font-weight: 700;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        user-select: text;
+      }
+
+      .instructions {
+        font-weight: 400;
+        font-size: 1rem;
+        color: var(--color-muted);
+        margin-bottom: 1.25rem;
+        text-align: center;
+        user-select: none;
+      }
+
+      /* Mood Booster */
+      #moodBooster p.mood-text {
+        font-style: italic;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        color: var(--color-muted);
+        min-height: 4rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        user-select: text;
+        padding: 0 0.5rem;
+      }
+      #moodBooster button {
+        background-color: var(--color-accent);
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 0.75rem 1.75rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(249, 115, 22, 0.6);
+        transition: background-color var(--transition), transform 0.15s ease;
+        user-select: none;
+      }
+      #moodBooster button:hover,
+      #moodBooster button:focus {
+        background-color: #fb923c;
+        outline: none;
+        transform: scale(1.05);
+      }
+      #moodBooster button:active {
+        transform: scale(0.98);
+      }
+
+      /* Tile Click Game */
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        width: 100%;
+      }
+      .tile {
+        background-color: #3b82f6;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color var(--transition),
+          transform var(--transition);
+        outline-offset: 3px;
+      }
+      .tile:hover:not(.disabled),
+      .tile:focus-visible:not(.disabled) {
+        background-color: #2563eb;
+        transform: scale(1.05);
+        outline: none;
+      }
+      .tile.disabled {
+        background-color: #94a3b8;
+        color: #3b4252;
+        cursor: default;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Game controls */
+      .game-controls {
+        margin-top: 1rem;
+        text-align: center;
+      }
+      .game-controls button {
+        background-color: var(--color-accent);
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 0.65rem 1.75rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 6px 14px rgba(249, 115, 22, 0.6);
+        user-select: none;
+        transition: background-color var(--transition), transform 0.15s ease;
+      }
+      .game-controls button:hover,
+      .game-controls button:focus {
+        background-color: #fb923c;
+        outline: none;
+        transform: scale(1.05);
+      }
+      .game-controls button:active {
+        transform: scale(0.98);
+      }
+
+      /* Game status text */
+      .game-status {
+        margin-top: 1rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--color-accent);
+        min-height: 2rem;
+        text-align: center;
+        user-select: none;
+        transition: color var(--transition);
+      }
+
+      /* Memory Match Game */
+      #memoryGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        width: 100%;
+      }
+      .memory-card {
+        background-color: #3b82f6;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: transparent;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color var(--transition), color var(--transition),
+          transform var(--transition);
+        outline-offset: 3px;
+        position: relative;
+        perspective: 1000px;
+        outline: none;
+      }
+      .memory-card.flipped,
+      .memory-card.matched {
+        background-color: #2563eb;
+        color: white;
+        cursor: default;
+        transform: rotateY(0deg);
+      }
+      .memory-card.not-flipped {
+        color: transparent;
+        transform: rotateY(180deg);
+      }
+      .memory-card:focus-visible {
+        outline: 3px solid var(--color-accent);
+        outline-offset: 3px;
+      }
+      /* For flipping effect, use front and back faces */
+      .memory-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.4s;
+        transform-style: preserve-3d;
+      }
+      .memory-card.flipped .memory-card-inner {
+        transform: rotateY(180deg);
+      }
+      .memory-card-front,
+      .memory-card-back {
+        backface-visibility: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--border-radius);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .memory-card-front {
+        background-color: #3b82f6;
+        color: transparent;
+        font-size: 2.5rem;
+        user-select: none;
+      }
+      .memory-card-back {
+        background-color: #2563eb;
+        color: white;
+        transform: rotateY(180deg);
+        font-size: 2.5rem;
+        font-weight: 700;
+        user-select: none;
+      }
+
+      /* Reaction Time Test */
+      #reactionBox {
+        width: 100%;
+        padding: 4rem 0;
+        background-color: #3b82f6;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.6rem;
+        font-weight: 700;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color var(--transition);
+        outline-offset: 3px;
+        text-align: center;
+      }
+      #reactionBox.ready {
+        background-color: #37ff00;
+      }
+      #reactionBox.tooSoon {
+        background-color: #ef4444;
+      }
+      #reactionResult {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        min-height: 2rem;
+        user-select: none;
+        text-align: center;
+        transition: color var(--transition);
+      }
+
+      /* Pong Game */
+      #pongGameCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        user-select: none;
+        position: relative;
+      }
+      #pongCanvas {
+        border-radius: var(--border-radius);
+        background-color: white;
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.7);
+        outline-offset: 3px;
+      }
+      #pongScore {
+        margin-top: 1rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--color-accent);
+        min-height: 2rem;
+        text-align: center;
+        user-select: none;
+        transition: color var(--transition);
+      }
+      #pongGameCard .instructions {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--color-muted);
+        text-align: center;
+      }
+      /* Mobile paddle control buttons */
+      #pongControls {
+        display: none;
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      #pongControls button {
+        flex: 1;
+        background-color: var(--color-accent);
+        border: none;
+        border-radius: var(--border-radius);
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        padding: 0.8rem 0;
+        cursor: pointer;
+        box-shadow: 0 6px 14px rgba(249, 115, 22, 0.6);
+        transition: background-color var(--transition), transform 0.15s ease;
+        user-select: none;
+        touch-action: manipulation;
+        user-select: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+      }
+      #pongControls button:active {
+        transform: scale(0.95);
+      }
+      #pongControls button:hover,
+      #pongControls button:focus {
+        background-color: #fb923c;
+        outline: none;
+      }
+
+      /* Greeting card */
+      #greetingCard {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 2rem 1rem;
+        background: var(--color-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-light);
+        user-select: text;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+      #greetingCard img {
+        width: 140px;
+        height: 140px;
+        border-radius: var(--border-radius);
+        object-fit: cover;
+        filter: grayscale(15%);
+        transition: filter 0.3s ease;
+        flex-shrink: 0;
+        border: 3px solid var(--color-accent);
+      }
+      #greetingCard img:hover,
+      #greetingCard img:focus {
+        filter: grayscale(0);
+        outline: none;
+      }
+      #greetingCard p {
+        font-size: 1.25rem;
+        color: var(--color-muted);
+        max-width: 600px;
+        user-select: text;
+      }
+
+      /* Footer */
+      footer {
+        background: #f7f7f7;
+        padding: 1.5rem 1.5rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--color-muted);
+        border-top: 1px solid #e5e7eb;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      footer button.toggle-btn {
+        background: transparent;
+        border: 2px solid var(--color-accent);
+        color: var(--color-accent);
+        font-weight: 700;
+        font-size: 1rem;
+        border-radius: var(--border-radius);
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: background-color var(--transition), color var(--transition),
+          border-color var(--transition), transform 0.15s ease;
+        user-select: none;
+      }
+      footer button.toggle-btn:hover,
+      footer button.toggle-btn:focus {
+        background: var(--color-accent);
+        color: white;
+        outline: none;
+        transform: scale(1.05);
+      }
+      footer button.toggle-btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Accessibility focus styles */
+      button:focus-visible,
+      .tile:focus-visible,
+      .memory-card:focus-visible,
+      #reactionBox:focus-visible,
+      #pongCanvas:focus-visible,
+      a:focus-visible,
+      #greetingCard img:focus {
+        outline: 3px solid var(--color-accent);
+        outline-offset: 3px;
+      }
+
+      /* Responsive adjustments for smaller screens (mobile) */
+      @media (max-width: 768px) {
+        main {
+          grid-template-columns: 1fr;
+          margin: 2rem auto 3rem;
+          width: 95vw;
+        }
+        #greetingCard {
+          flex-direction: column;
+        }
+        #greetingCard p {
+          max-width: 100%;
+        }
+        header {
+          padding: 1rem;
+        }
+        nav {
+          gap: 1rem;
+          font-size: 0.9375rem;
+        }
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.1rem;
+        }
+        .hero button.cta {
+          padding: 0.75rem 2rem;
+          font-size: 1.1rem;
+        }
+        /* Show pong controls for mobile */
+        #pongControls {
+          display: flex;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo" tabindex="0">CheerUp</div>
+      <nav aria-label="Primary">
+        <a href="#moodBooster" tabindex="0">Mood Booster</a>
+        <a href="#tileGame" tabindex="0">Tile Click Game</a>
+        <a href="#memoryGame" tabindex="0">Memory Match</a>
+        <a href="#reactionTest" tabindex="0">Reaction Test</a>
+        <a href="#pongGameCard" tabindex="0">Pong Game</a>
+        <a href="#greetingCard" tabindex="0">Greeting</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Welcome message and call to action">
+        <h1 tabindex="0">CheerUp</h1>
+        <p tabindex="0">
+          Dear friend, we hope this place brings you joy and light — here’s some
+          cheer and fun to brighten your day.
+        </p>
+        <button class="cta" id="boostMoodBtn" aria-describedby="boostMoodDesc">
+          Boost Your Mood
+        </button>
+        <p id="boostMoodDesc" style="position: absolute; left: -9999px">
+          Click to receive an uplifting message or joke.
+        </p>
+      </section>
+
+      <!-- Mood Booster Card -->
+      <section
+        id="moodBooster"
+        class="card"
+        tabindex="0"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-label="Mood booster with uplifting messages and jokes"
+      >
+        <h2>🌟 Mood Booster</h2>
+        <p class="mood-text" id="moodText">
+          Click the button above to get a cheerful message or joke.
+        </p>
+        <button
+          id="moodNextBtn"
+          aria-label="Show next uplifting message or joke"
+        >
+          New Mood Boost
+        </button>
+      </section>
+
+      <!-- Tile Click Game -->
+      <section id="tileGame" class="card" aria-label="Tile click game">
+        <h2>🎨 Tile Click Challenge</h2>
+        <p class="instructions">
+          Tap on the colorful tiles to clear them all as fast as you can!
+        </p>
+        <div
+          class="tiles"
+          role="grid"
+          aria-live="polite"
+          aria-relevant="additions"
+        ></div>
+        <div class="game-controls">
+          <button id="resetTileBtn" aria-label="Reset tile click game">
+            Restart Game
+          </button>
+        </div>
+        <p
+          id="tileGameStatus"
+          class="game-status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+      </section>
+
+      <!-- Memory Match Game -->
+      <section id="memoryGame" class="card" aria-label="Memory match card game">
+        <h2>🧠 Memory Match</h2>
+        <p class="instructions">
+          Flip 2 cards at a time to find matching pairs. Try to find all
+          matches!
+        </p>
+        <div
+          id="memoryGrid"
+          role="grid"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
+        <div class="game-controls">
+          <button id="resetMemoryBtn" aria-label="Reset memory match game">
+            Restart Game
+          </button>
+        </div>
+        <p
+          id="memoryGameStatus"
+          class="game-status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+      </section>
+
+      <!-- Reaction Time Test -->
+      <section id="reactionTest" class="card" aria-label="Reaction time test">
+        <h2>⚡ Reaction Time Test</h2>
+        <div
+          id="reactionBox"
+          tabindex="0"
+          role="button"
+          aria-pressed="false"
+          aria-label="Reaction time test box"
+        >
+          Wait for green and then tap!
+        </div>
+        <p
+          id="reactionResult"
+          class="game-status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+        <div class="game-controls">
+          <button id="resetReactionBtn" aria-label="Reset reaction time test">
+            Restart Test
+          </button>
+        </div>
+      </section>
+
+      <!-- Pong Game -->
+      <section
+        id="pongGameCard"
+        class="card"
+        aria-label="Pong style one player game"
+      >
+        <h2>🏓 Pong Game</h2>
+        <canvas
+          id="pongCanvas"
+          width="360"
+          height="250"
+          tabindex="0"
+          aria-label="Pong game canvas"
+        ></canvas>
+        <p
+          id="pongScore"
+          class="game-status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Score: 0
+        </p>
+        <p class="instructions" style="margin-top: 0.5rem; font-size: 0.9rem">
+          Use arrow keys (desktop) or tap controls below (mobile) to move the
+          paddle up and down. Keep the ball bouncing as long as possible.
+        </p>
+        <div
+          class="game-controls"
+          id="pongControls"
+          aria-label="Pong game mobile controls"
+        >
+          <button id="pongUpBtn" aria-label="Move paddle up">▲ UP</button>
+          <button id="pongDownBtn" aria-label="Move paddle down">▼ DOWN</button>
+        </div>
+        <div class="game-controls">
+          <button id="resetPongBtn" aria-label="Reset pong game">
+            Restart Pong
+          </button>
+        </div>
+      </section>
+
+      <!-- Greeting Card -->
+      <section
+        id="greetingCard"
+        class="card"
+        tabindex="0"
+        aria-label="Personal greeting with photo and message"
+      >
+        <img
+          src="./1.png"
+          alt="Comforting smiling person smiling gently"
+          tabindex="0"
+        />
+        <p>
+          "OY RIEN, ana denger kamu lagi jadi 'bintang tamu' di rumah sakit nih
+          yeh? Jangan lama-lama, nanti malah dikira mau promo RS! 😆 CEPET
+          SEMBUH RIEN! Jangan lupa istirahat yang cukup, makan yang bergizi, dan
+          jauhi dulu begadang bedagangnya sampai benar-benar fit. Katanya kan
+          kamu kangen banget sama kita kita di fotban sama sekitar lingkungan
+          ini, jadi harus cepat pulih biar bisa balik ke kebiasaan itu! Oh iya,
+          kabarnya para perawat juga udah kangen sama senyum manismu loh~ Tapi
+          jangan bikin mereka betah ngurusin kamu, okeeeeyyyy! 😜 Semoga lekas
+          sehat dan kembali ceria! Kita tunggu kamu di luar dengan cerita-cerita
+          seru! Salam hangat, [iqi] 🍃💐" . You are not alone — keep shining!
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <button
+        id="themeToggleBtn"
+        class="toggle-btn"
+        aria-pressed="false"
+        aria-label="Toggle dark and light theme"
+      >
+        Toggle Dark Mode
+      </button>
+      <button
+        id="musicToggleBtn"
+        class="toggle-btn"
+        aria-pressed="false"
+        aria-label="Toggle relaxing background music"
+      >
+        Play Music
+      </button>
+    </footer>
+
+    <audio
+      id="relaxAudio"
+      loop
+      preload="auto"
+      src="https://cdn.pixabay.com/download/audio/2022/08/03/audio_33e4a29b18.mp3?filename=piano-melody-1331.mp3"
+    ></audio>
+
+    <script>
+      (() => {
+        "use strict";
+
+        // Elements for Mood Booster
+        const moodText = document.getElementById("moodText");
+        const boostMoodBtn = document.getElementById("boostMoodBtn");
+        const moodNextBtn = document.getElementById("moodNextBtn");
+
+        const moodMessages = [
+          "Keep your face always toward the sunshine—and the shadows will fall behind you. — Walt Whitman",
+          "Laughter is timeless, imagination has no age, and dreams are forever. — Walt Disney",
+          "Even the darkest night will end and the sun will rise. — Victor Hugo",
+          "In the middle of difficulty lies opportunity. — Albert Einstein",
+          "You're stronger than you think, and brighter days are coming.",
+          "Here’s a little sunshine to brighten your day ☀️",
+          "Every day may not be good, but there is something good in every day.",
+          "Take life one breath at a time — you're doing great.",
+          "Believe you can and you're halfway there.",
+          "Fun fact: Smiling can boost your immune system!",
+          "Joke: Why don't scientists trust atoms? Because they make up everything!",
+          "Joke: What did the ocean say to the beach? Nothing, it just waved!",
+          "Tip: Deep breaths can reduce stress and bring clarity.",
+          "Smile! It's a free therapy session.",
+          "Remember: Even small progress is progress!",
+        ];
+
+        function randomInt(max) {
+          return Math.floor(Math.random() * max);
+        }
+
+        function showMoodMessage() {
+          const message = moodMessages[randomInt(moodMessages.length)];
+          moodText.textContent = message;
+        }
+
+        boostMoodBtn.addEventListener("click", () => {
+          showMoodMessage();
+          boostMoodBtn.focus();
+        });
+        moodNextBtn.addEventListener("click", () => {
+          showMoodMessage();
+          moodNextBtn.focus();
+        });
+
+        // Tile Click Game Setup
+        const tilesContainer = document.querySelector("#tileGame .tiles");
+        const resetTileBtn = document.getElementById("resetTileBtn");
+        const tileGameStatus = document.getElementById("tileGameStatus");
+        let tiles = [];
+        const TILE_COUNT = 16;
+
+        function createTiles() {
+          tilesContainer.innerHTML = "";
+          tiles = [];
+          for (let i = 0; i < TILE_COUNT; i++) {
+            const tile = document.createElement("div");
+            tile.classList.add("tile");
+            tile.setAttribute("tabindex", "0");
+            tile.setAttribute("role", "gridcell");
+            tile.style.backgroundColor = randomPastelColor();
+            tile.dataset.index = i;
+            tile.setAttribute("aria-label", `Colored tile ${i + 1}`);
+            tile.addEventListener("click", () => handleTileClick(tile));
+            tile.addEventListener("keydown", (e) => {
+              if (
+                (e.key === "Enter" || e.key === " ") &&
+                !tile.classList.contains("disabled")
+              ) {
+                e.preventDefault();
+                handleTileClick(tile);
+              }
+            });
+            tilesContainer.appendChild(tile);
+            tiles.push(tile);
+          }
+          tileGameStatus.textContent = "Tap tiles to clear them all!";
+        }
+
+        function randomPastelColor() {
+          const r = Math.floor(Math.random() * 127 + 127);
+          const g = Math.floor(Math.random() * 127 + 127);
+          const b = Math.floor(Math.random() * 127 + 127);
+          return `rgb(${r},${g},${b})`;
+        }
+
+        function handleTileClick(tile) {
+          if (tile.classList.contains("disabled")) return;
+          tile.classList.add("disabled");
+          tile.style.backgroundColor = "#ddd";
+          tile.style.color = "#888";
+          tile.style.cursor = "default";
+          tile.removeAttribute("aria-label");
+          checkTileGameWin();
+        }
+
+        function checkTileGameWin() {
+          const allDisabled = tiles.every((t) =>
+            t.classList.contains("disabled")
+          );
+          if (allDisabled) {
+            tileGameStatus.textContent =
+              "🎉 Congratulations! You cleared all tiles!";
+            launchConfetti();
+          }
+        }
+
+        resetTileBtn.addEventListener("click", () => {
+          createTiles();
+          resetTileBtn.focus();
+        });
+
+        // Memory Match Game Setup
+        const memoryGrid = document.getElementById("memoryGrid");
+        const resetMemoryBtn = document.getElementById("resetMemoryBtn");
+        const memoryGameStatus = document.getElementById("memoryGameStatus");
+
+        const icons = ["🍎", "🍌", "🍇", "🍒", "🥝", "🍑", "🍍", "🥥"]; // 8 pairs
+        // state
+        let memoryCards = [];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matchedPairs = 0;
+
+        function createMemoryGame() {
+          memoryGrid.innerHTML = "";
+          memoryCards = [];
+          firstCard = null;
+          secondCard = null;
+          lockBoard = false;
+          matchedPairs = 0;
+          memoryGameStatus.textContent = "Find all matching pairs!";
+          let pairs = [...icons, ...icons];
+          shuffleArray(pairs);
+          pairs.forEach((icon, idx) => {
+            const card = createMemoryCard(icon, idx);
+            memoryGrid.appendChild(card);
+            memoryCards.push(card);
+          });
+        }
+
+        function createMemoryCard(icon, idx) {
+          const card = document.createElement("button");
+          card.className = "memory-card";
+          card.setAttribute("aria-label", "Memory card, hidden");
+          card.setAttribute("aria-pressed", "false");
+          card.setAttribute("tabindex", "0");
+          card.type = "button";
+          card.dataset.icon = icon;
+
+          // inner for animation
+          const cardInner = document.createElement("div");
+          cardInner.className = "memory-card-inner";
+
+          const front = document.createElement("div");
+          front.className = "memory-card-front";
+          front.textContent = "❓";
+
+          const back = document.createElement("div");
+          back.className = "memory-card-back";
+          back.textContent = icon;
+
+          cardInner.appendChild(front);
+          cardInner.appendChild(back);
+
+          card.appendChild(cardInner);
+
+          card.addEventListener("click", () => flipCard(card));
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              flipCard(card);
+            }
+          });
+
+          return card;
+        }
+
+        function flipCard(card) {
+          if (lockBoard) return;
+          if (card === firstCard) return;
+
+          if (
+            card.classList.contains("matched") ||
+            card.classList.contains("flipped")
+          )
+            return;
+
+          card.classList.add("flipped");
+          card.setAttribute("aria-pressed", "true");
+          card.setAttribute(
+            "aria-label",
+            `Memory card showing ${card.dataset.icon}`
+          );
+
+          if (!firstCard) {
+            firstCard = card;
+            return;
+          }
+
+          secondCard = card;
+          lockBoard = true;
+
+          checkForMatch();
+        }
+
+        function checkForMatch() {
+          const isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
+          if (isMatch) {
+            disableCards();
+            matchedPairs++;
+            memoryGameStatus.textContent = `Great! You found ${matchedPairs} ${
+              matchedPairs === icons.length
+                ? "- All pairs found! 🎉"
+                : "pairs so far!"
+            }`;
+            resetBoard();
+            if (matchedPairs === icons.length) {
+              launchConfetti();
+            }
+          } else {
+            unflipCards();
+          }
+        }
+
+        function disableCards() {
+          firstCard.classList.add("matched");
+          secondCard.classList.add("matched");
+          firstCard.removeEventListener("click", flipCard);
+          secondCard.removeEventListener("click", flipCard);
+        }
+
+        function unflipCards() {
+          setTimeout(() => {
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            firstCard.setAttribute("aria-pressed", "false");
+            secondCard.setAttribute("aria-pressed", "false");
+            firstCard.setAttribute("aria-label", "Memory card, hidden");
+            secondCard.setAttribute("aria-label", "Memory card, hidden");
+            resetBoard();
+          }, 1000);
+        }
+
+        function resetBoard() {
+          [firstCard, secondCard] = [null, null];
+          lockBoard = false;
+        }
+
+        resetMemoryBtn.addEventListener("click", () => {
+          createMemoryGame();
+          resetMemoryBtn.focus();
+        });
+
+        // Shuffle array Fisher-Yates algorithm
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+        }
+
+        // Reaction Time Test Setup
+        const reactionBox = document.getElementById("reactionBox");
+        const reactionResult = document.getElementById("reactionResult");
+        const resetReactionBtn = document.getElementById("resetReactionBtn");
+
+        let reactionTimeout = null;
+        let startTime = null;
+        let waitingForClick = false;
+
+        function startReactionTest() {
+          reactionBox.textContent = "Wait for green and then tap!";
+          reactionBox.classList.remove("ready", "tooSoon");
+          reactionBox.setAttribute("aria-pressed", "false");
+          reactionResult.textContent = "";
+          waitingForClick = false;
+
+          const waitTime = Math.random() * 3000 + 2000;
+          reactionTimeout = setTimeout(() => {
+            reactionBox.classList.add("ready");
+            reactionBox.textContent = "NOW! Tap!";
+            reactionBox.setAttribute("aria-pressed", "true");
+            startTime = new Date().getTime();
+            waitingForClick = true;
+          }, waitTime);
+        }
+
+        function handleReactionClick() {
+          if (waitingForClick) {
+            const reactionTime = new Date().getTime() - startTime;
+            reactionResult.textContent = `Your reaction time is ${reactionTime} ms!`;
+            reactionBox.classList.remove("ready");
+            waitingForClick = false;
+            clearTimeout(reactionTimeout);
+          } else {
+            clearTimeout(reactionTimeout);
+            reactionBox.classList.add("tooSoon");
+            reactionBox.textContent = "Too soon! Wait until green!";
+            waitingForClick = false;
+            reactionResult.textContent = "";
+            setTimeout(() => {
+              startReactionTest();
+            }, 1500);
+          }
+        }
+
+        reactionBox.addEventListener("click", handleReactionClick);
+        reactionBox.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleReactionClick();
+          }
+        });
+        resetReactionBtn.addEventListener("click", () => {
+          clearTimeout(reactionTimeout);
+          startReactionTest();
+          resetReactionBtn.focus();
+        });
+
+        // Pong Game Setup
+        const pongCanvas = document.getElementById("pongCanvas");
+        const pongCtx = pongCanvas.getContext("2d");
+        const pongScoreEl = document.getElementById("pongScore");
+        const pongUpBtn = document.getElementById("pongUpBtn");
+        const pongDownBtn = document.getElementById("pongDownBtn");
+
+        const PADDLE_WIDTH = 12;
+        const PADDLE_HEIGHT = 60;
+        const BALL_RADIUS = 10;
+
+        let paddleY = pongCanvas.height / 2 - PADDLE_HEIGHT / 2;
+        const paddleX = pongCanvas.width - PADDLE_WIDTH - 10;
+
+        let ball = {
+          x: 50,
+          y: pongCanvas.height / 2,
+          vx: 5,
+          vy: 3,
+        };
+
+        let pongScore = 0;
+        let pongRunning = true;
+
+        let paddleMoveInterval = null;
+
+        function drawPaddle() {
+          pongCtx.fillStyle = "#2563eb";
+          pongCtx.fillRect(paddleX, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT);
+        }
+
+        function drawBall() {
+          pongCtx.beginPath();
+          pongCtx.arc(ball.x, ball.y, BALL_RADIUS, 0, Math.PI * 2);
+          pongCtx.fillStyle = "#2563eb";
+          pongCtx.fill();
+          pongCtx.closePath();
+        }
+
+        function resetPongGame() {
+          paddleY = pongCanvas.height / 2 - PADDLE_HEIGHT / 2;
+          ball.x = 50;
+          ball.y = pongCanvas.height / 2;
+          ball.vx = 5;
+          ball.vy = 3;
+          pongScore = 0;
+          pongRunning = true;
+          pongScoreEl.textContent = "Score: 0";
+        }
+
+        function updatePongGame() {
+          if (!pongRunning) return;
+
+          // Clear canvas
+          pongCtx.clearRect(0, 0, pongCanvas.width, pongCanvas.height);
+
+          // Move ball
+          // Calculate next position for collision detection
+          const nextBallX = ball.x + ball.vx;
+          const nextBallY = ball.y + ball.vy;
+
+          // Ball collision with top and bottom walls
+          if (
+            nextBallY + BALL_RADIUS > pongCanvas.height ||
+            nextBallY - BALL_RADIUS < 0
+          ) {
+            ball.vy = -ball.vy;
+          }
+
+          // Ball collision with paddle - check tunneling
+          // If ball next position is beyond paddleX and current position not beyond, and ball y inside paddleY range
+          if (
+            ball.x + BALL_RADIUS <= paddleX &&
+            nextBallX + BALL_RADIUS >= paddleX &&
+            nextBallY > paddleY &&
+            nextBallY < paddleY + PADDLE_HEIGHT
+          ) {
+            ball.vx = -ball.vx;
+            pongScore++;
+            pongScoreEl.textContent = `Score: ${pongScore}`;
+
+            // Correct ball position to just before paddle to prevent sticking
+            ball.x = paddleX - BALL_RADIUS;
+
+            // Increase speed slightly every hit, max 10
+            ball.vx *= 1.05;
+            ball.vy *= 1.05;
+            if (Math.abs(ball.vx) > 10) ball.vx = (ball.vx > 0 ? 1 : -1) * 10;
+            if (Math.abs(ball.vy) > 10) ball.vy = (ball.vy > 0 ? 1 : -1) * 10;
+          }
+
+          // Update ball position after collision detection
+          ball.x += ball.vx;
+          ball.y += ball.vy;
+
+          // Ball misses paddle - game over
+          if (ball.x - BALL_RADIUS > pongCanvas.width) {
+            pongRunning = false;
+            pongScoreEl.textContent = `Game Over! Final Score: ${pongScore}. Press Restart.`;
+            launchConfetti();
+          }
+
+          drawPaddle();
+          drawBall();
+
+          if (pongRunning) {
+            requestAnimationFrame(updatePongGame);
+          }
+        }
+
+        // Paddle move with arrow keys
+        function handlePaddleMove(e) {
+          const step = 15;
+          if (e.key === "ArrowUp") {
+            paddleY -= step;
+            if (paddleY < 0) paddleY = 0;
+          }
+          if (e.key === "ArrowDown") {
+            paddleY += step;
+            if (paddleY + PADDLE_HEIGHT > pongCanvas.height)
+              paddleY = pongCanvas.height - PADDLE_HEIGHT;
+          }
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.target === pongCanvas) {
+            handlePaddleMove(e);
+            e.preventDefault();
+          }
+        });
+
+        // Mobile paddle control helpers
+        function movePaddleUp() {
+          paddleY -= 7;
+          if (paddleY < 0) paddleY = 0;
+        }
+        function movePaddleDown() {
+          paddleY += 7;
+          if (paddleY + PADDLE_HEIGHT > pongCanvas.height)
+            paddleY = pongCanvas.height - PADDLE_HEIGHT;
+        }
+
+        let intervalId = null;
+        function startMovingUp() {
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(() => {
+            movePaddleUp();
+          }, 30);
+        }
+        function stopMoving() {
+          if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+          }
+        }
+        function startMovingDown() {
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(() => {
+            movePaddleDown();
+          }, 30);
+        }
+
+        pongUpBtn.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault();
+            startMovingUp();
+          },
+          { passive: false }
+        );
+        pongUpBtn.addEventListener(
+          "touchend",
+          (e) => {
+            e.preventDefault();
+            stopMoving();
+          },
+          { passive: false }
+        );
+        pongUpBtn.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          startMovingUp();
+        });
+        pongUpBtn.addEventListener("mouseup", (e) => {
+          e.preventDefault();
+          stopMoving();
+        });
+        pongUpBtn.addEventListener("mouseleave", stopMoving);
+
+        pongDownBtn.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault();
+            startMovingDown();
+          },
+          { passive: false }
+        );
+        pongDownBtn.addEventListener(
+          "touchend",
+          (e) => {
+            e.preventDefault();
+            stopMoving();
+          },
+          { passive: false }
+        );
+        pongDownBtn.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          startMovingDown();
+        });
+        pongDownBtn.addEventListener("mouseup", (e) => {
+          e.preventDefault();
+          stopMoving();
+        });
+        pongDownBtn.addEventListener("mouseleave", stopMoving);
+
+        document
+          .getElementById("resetPongBtn")
+          .addEventListener("click", () => {
+            resetPongGame();
+            updatePongGame();
+            pongCanvas.focus();
+          });
+
+        // Confetti common
+        const confettiContainer = document.createElement("div");
+        confettiContainer.style.position = "fixed";
+        confettiContainer.style.top = "0";
+        confettiContainer.style.left = "0";
+        confettiContainer.style.width = "100vw";
+        confettiContainer.style.height = "100vh";
+        confettiContainer.style.pointerEvents = "none";
+        confettiContainer.style.zIndex = "9999";
+        document.body.appendChild(confettiContainer);
+
+        function launchConfetti() {
+          const confettiCount = 100;
+          const colors = [
+            "#2563eb",
+            "#3b82f6",
+            "#f97316",
+            "#fbbf24",
+            "#10b981",
+          ];
+          for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement("div");
+            confetti.style.position = "fixed";
+            confetti.style.width = "8px";
+            confetti.style.height = "8px";
+            confetti.style.borderRadius = "50%";
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * window.innerWidth + "px";
+            confetti.style.top = "-10px";
+            confetti.style.opacity = Math.random();
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confetti.style.animation = `confettiFall ${
+              Math.random() * 2 + 3
+            }s forwards ease-out`;
+            confettiContainer.appendChild(confetti);
+            confetti.addEventListener("animationend", () => {
+              confetti.remove();
+            });
+          }
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.textContent = `
+        @keyframes confettiFall {
+          0% {
+            opacity: 1;
+            transform: translateY(0) rotate(0deg);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(100vh) rotate(360deg);
+          }
+        }
+      `;
+        document.head.appendChild(styleSheet);
+
+        // Mood Booster initial
+        showMoodMessage();
+
+        // Tile click initial
+        createTiles();
+
+        // Memory match initial
+        createMemoryGame();
+
+        // Reaction test initial
+        startReactionTest();
+
+        // Pong game initial
+        resetPongGame();
+        updatePongGame();
+
+        // Audio
+        const musicToggleBtn = document.getElementById("musicToggleBtn");
+        const relaxAudio = document.getElementById("relaxAudio");
+
+        musicToggleBtn.addEventListener("click", () => {
+          if (relaxAudio.paused) {
+            relaxAudio.play();
+            musicToggleBtn.textContent = "Stop Music";
+            musicToggleBtn.setAttribute("aria-pressed", "true");
+          } else {
+            relaxAudio.pause();
+            musicToggleBtn.textContent = "Play Music";
+            musicToggleBtn.setAttribute("aria-pressed", "false");
+          }
+        });
+
+        // Theme toggle (optional extension)
+        const themeToggleBtn = document.getElementById("themeToggleBtn");
+        let darkOn = false;
+        themeToggleBtn.addEventListener("click", () => {
+          darkOn = !darkOn;
+          if (darkOn) {
+            document.body.style.backgroundColor = "#1e293b";
+            document.body.style.color = "#f9fafb";
+            themeToggleBtn.textContent = "Switch to Light Mode";
+          } else {
+            document.body.style.backgroundColor = "var(--color-bg)";
+            document.body.style.color = "var(--color-primary)";
+            themeToggleBtn.textContent = "Toggle Dark Mode";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
