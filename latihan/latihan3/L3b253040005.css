@@ -1,0 +1,32 @@
+body {
+  background-color: aqua;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+h1 {
+  font-family: Comic Sans MS, cursive, sans-serif;
+  font-size: 60px;
+  color: darkblue;
+  text-align: center;
+  margin-top: 0px;
+}
+
+h4 {
+  text-align: end;
+  font-style: italic;
+}
+
+.ig {
+  color: white;
+}
+
+.paragraf1 {
+  text-align: center;
+  color: orange;
+}
+
+.paragraf2 {
+  text-align: right;
+  line-height: 25px;
+  word-spacing: 2px;
+}
