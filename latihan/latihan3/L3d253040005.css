@@ -1,5 +1,6 @@
 body {
-  background-color: aqua;
+  background: url(background.png);
+  background-repeat: repeat-x;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
@@ -12,13 +13,16 @@ h1 {
 }
 
 h4 {
-  text-align: end;
+  text-align: center;
   font-style: italic;
 }
 
+h3 {
+  text-align: center;
+}
+
 .ig {
-  color: white;
-  text-decoration: none;
+  color: red;
 }
 
 .paragraf1 {
@@ -30,4 +34,14 @@ h4 {
   text-align: right;
   line-height: 25px;
   word-spacing: 2px;
+}
+
+.mark {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.mark:hover {
+  background-color: blue;
+  color: white;
 }
