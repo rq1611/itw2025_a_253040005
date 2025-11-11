@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "04B_30__";
+  src: url(../font/04B_30__.TTF);
+}
+
+@font-face {
+  font-family: "exrude";
+  src: url(../font/Extrude.ttf);
+}
+
+body {
+  background-image: url(../img/download.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  width: fit-content;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.header {
+  background-color: #ff8f45;
+  padding: 20px;
+  padding-bottom: 10px;
+}
+
+.header .logo {
+  width: 150px;
+  height: auto;
+  float: left;
+  margin-top: 10px;
+}
+
+.header li .tombol {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  font-family: "04B_30__", sans-serif;
+  text-decoration: none;
+  transition: 0.3s;
+  padding: 10px;
+  border: 2px solid #333;
+  margin: 0px 5px;
+  border-radius: 10px;
+  background-color: darkgoldenrod;
+}
+
+.header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .tombol:hover {
+  color: #ff6600;
+  text-decoration: none;
+  box-shadow: #333 0px 0px 10px;
+  background-color: rgb(72, 51, 35);
+  padding: 12px;
+}
+
+.header .fotop {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+.header .fotop:hover {
+  box-shadow: #333 0px 0px 10px;
+  transform: scale(1.1);
+  transition: 0.3s;
+  background-image: url(../img/settings.png);
+}
+
+.header .prof,
+.header .fotop {
+  border-radius: 50%;
+}
+
+.pembuka {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+.pembuka h2 {
+  text-align: center;
+  font-family: "04B_30__", sans-serif;
+  font-size: 32px;
+  margin: 20px 0px;
+}
+
+.games {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+.games h3 {
+  font-family: "exrude", sans-serif;
+  font-size: 30px;
+}
