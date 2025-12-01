@@ -4,7 +4,7 @@ const carousel = document.getElementById("newsCarousel");
 
 let index = 0;
 
-/* SIDEBAR */
+
 function toggleSidebar() {
   sidebar.classList.toggle("active");
   overlay.classList.toggle("active");
@@ -15,7 +15,7 @@ function closeSidebar() {
   overlay.classList.remove("active");
 }
 
-/* CAROUSEL */
+
 function visibleCard() {
   return window.innerWidth <= 768 ? 1 : 3;
 }
@@ -38,7 +38,7 @@ function prevNews() {
 
 setInterval(nextNews, 3000);
 
-/* ALAT 3D */
+
 document.querySelectorAll(".alat-card").forEach((card) => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
@@ -54,13 +54,12 @@ document.querySelectorAll(".alat-card").forEach((card) => {
   });
 });
 
-/* ===== LOADING AUTO HIDE ===== */
+
 window.addEventListener("load", () => {
   document.getElementById("loading").style.display = "none";
 });
 
-/* ===== DARK MODE TOGGLE ===== */
+
 function toggleDark() {
   document.body.classList.toggle("dark");
 }
-  

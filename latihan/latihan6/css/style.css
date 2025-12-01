@@ -27,10 +27,10 @@ body::before {
     linear-gradient(90deg, transparent 95%, rgba(255, 0, 0, 0.05));
   background-size: 80px 80px;
   z-index: -1;
-} /* CONTAINER */
+} 
 .container {
   animation: zoomIn 1s ease;
-} /* NAVBAR */
+} 
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -60,7 +60,7 @@ body::before {
   position: relative;
   padding: 6px 10px;
   transition: 0.3s ease;
-} /* GARIS BAWAH ANIMASI */
+} 
 .nav-list li a::after {
   content: "";
   position: absolute;
@@ -78,7 +78,7 @@ body::before {
 }
 .nav-list li a:hover {
   transform: translateY(-3px);
-} /* Efek klik */
+} 
 .nav-list li a:active {
   transform: scale(0.92);
 }
@@ -90,7 +90,7 @@ body::before {
 }
 .menu-toggle:hover {
   transform: rotate(90deg) scale(1.1);
-} /* SIDEBAR */
+}
 .sidebar {
   position: fixed;
   top: 0;
@@ -125,7 +125,7 @@ body::before {
   display: block;
   padding: 10px;
   border-radius: 10px;
-} /* OVERLAY */
+} 
 .overlay {
   position: fixed;
   inset: 0;
@@ -137,7 +137,7 @@ body::before {
 .overlay.active {
   visibility: visible;
   opacity: 1;
-} /* CONTENT */
+} 
 .content {
   padding: 30px;
 }
@@ -151,7 +151,7 @@ body::before {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   animation: fadeUp 1s ease;
-} /* === NEWS === */
+}
 .news-carousel-container {
   position: relative;
   overflow: hidden;
@@ -171,7 +171,7 @@ body::before {
   opacity: 0;
   transform: translateY(40px) scale(0.95);
   animation: newsFade 0.8s ease forwards;
-} /* Delay otomatis per card */
+} 
 .news-card:nth-child(1) {
   animation-delay: 0.2s;
 }
@@ -232,7 +232,7 @@ body::before {
 }
 .news-card:hover p {
   opacity: 1;
-} /* BUTTON */
+} 
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -249,7 +249,7 @@ body::before {
 }
 .next {
   right: 5px;
-} /* === ALAT === */
+} 
 .alat-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -270,7 +270,7 @@ body::before {
   width: 100%;
   height: auto;
   object-fit: cover;
-} /* ===== LOADING SCREEN ===== */
+} 
 #loading {
   position: fixed;
   inset: 0;
@@ -295,7 +295,7 @@ body::before {
   to {
     transform: rotate(360deg);
   }
-} /* ===== FLOATING PARTICLES ===== */
+} 
 .particles {
   position: fixed;
   inset: 0;
@@ -359,7 +359,7 @@ body::before {
     transform: translateY(-120vh);
     opacity: 1;
   }
-} /* ===== DARK MODE ===== */
+}
 .dark-toggle {
   position: fixed;
   right: 20px;
@@ -402,7 +402,7 @@ body.dark .navbar {
   50% {
     transform: scale(1.08);
   }
-} /* RESPONSIVE */
+}
 @media (max-width: 768px) {
   .nav-list {
     display: none;
@@ -413,7 +413,7 @@ body.dark .navbar {
   .news-card {
     min-width: 100%;
   }
-} /* ANIMASI */
+} 
 @keyframes zoomIn {
   from {
     opacity: 0;
