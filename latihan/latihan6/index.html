@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KSR PMI UNIT UNPAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- LOADING SCREEN -->
+    <div id="loading">
+      <div class="loader"></div>
+      <p>Loading KSR PMI UNIT UNPAS...</p>
+    </div>
+    <!-- DARK MODE TOGGLE -->
+    <div class="dark-toggle" onclick="toggleDark()">🌙</div>
+    <!-- PARTICLE BACKGROUND -->
+    <div class="particles">
+      <span></span><span></span><span></span><span></span> <span></span
+      ><span></span><span></span><span></span>
+    </div>
+    <div class="container">
+      <!-- NAVBAR -->
+      <div class="navbar">
+        <div class="brand">
+          <img src="img/ksr.png" alt="Logo PMI" />
+          <h3>KSR PMI</h3>
+        </div>
+        <ul class="nav-list">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Profil</a></li>
+          <li><a href="#">Anggota</a></li>
+          <li><a href="#">Kegiatan</a></li>
+          <li><a href="#">Galeri</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+      </div>
+      <!-- SIDEBAR -->
+      <div class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="closeSidebar()">✖</div>
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="#" onclick="closeSidebar()">Dashboard</a></li>
+          <li><a href="#" onclick="closeSidebar()">Profil</a></li>
+          <li><a href="#" onclick="closeSidebar()">Anggota</a></li>
+          <li><a href="#" onclick="closeSidebar()">Kegiatan</a></li>
+          <li><a href="#" onclick="closeSidebar()">Galeri</a></li>
+        </ul>
+      </div>
+      <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="card-container">
+          <div class="card">
+            <h3>Sejarah KSR PMI</h3>
+            <p>
+              KSR PMI Unit UNPAS merupakan organisasi kemanusiaan di lingkungan
+              kampus.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Perkenalan Organisasi</h3>
+            <p>
+              KSR PMI bergerak di bidang donor darah, PPGD, dan kegiatan sosial.
+            </p>
+          </div>
+          <!-- BERITA -->
+          <div class="card">
+            <h3>Berita Terkini</h3>
+            <div class="news-carousel-container">
+              <button class="carousel-btn prev" onclick="prevNews()">❮</button>
+              <div class="news-carousel" id="newsCarousel">
+                <div class="news-card">
+                  <a href="detail.html">
+                    <img src="img/berita1.jpg" />
+                    <p>Donor Darah Massal</p>
+                  </a>
+                </div>
+                <div class="news-card">
+                  <a href="detail.html">
+                    <img src="img/berita2.jpg" />
+                    <p>Pelantikan Anggota</p>
+                  </a>
+                </div>
+                <div class="news-card">
+                  <a href="detail.html">
+                    <img src="img/berita3.jpg" />
+                    <p>Bakti Sosial</p>
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-btn next" onclick="nextNews()">❯</button>
+            </div>
+          </div>
+          <!-- ALAT KESEHATAN -->
+          <div class="card">
+            <h3>Peralatan Kesehatan</h3>
+            <div class="alat-container">
+              <a href="alat-detail.html" class="alat-card">
+                <img src="img/alattensi.png" />
+                <p>Tensimeter</p>
+              </a>
+              <a href="alat-detail.html" class="alat-card">
+                <img src="img/stetoskop.png" />
+                <p>Stetoskop</p>
+              </a>
+              <a href="alat-detail.html" class="alat-card">
+                <img src="img/p3k.png" />
+                <p>Kotak P3K</p>
+              </a>
+              <a href="alat-detail.html" class="alat-card">
+                <img src="img/oksigen.png" />
+                <p>Tabung Oksigen</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="js/script.js"></script>
+    </div>
+  </body>
+</html>
