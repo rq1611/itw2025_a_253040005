@@ -3,10 +3,14 @@ body {
 }
 
 .jumbotron {
-  padding-top: 2rem;
+  padding-top: 6rem;
   background-color: #f79b4a;
 }
 
 #projects {
   background-color: #f79b4a;
+}
+
+section {
+  padding-top: 6rem;
 }
